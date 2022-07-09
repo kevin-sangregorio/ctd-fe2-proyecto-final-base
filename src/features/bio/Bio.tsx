@@ -1,12 +1,20 @@
+/* Dependencies */
 import { useState } from "react";
-import { NombresSimpsons, INFO_SIMPSONS } from "./constants";
+
+/* Styles */
+import { BioContainer, BioButtonsContainer, BioImage, BioName, BioDescription } from "./bio-styled-components";
 import styles from "./styles.module.css";
 
+/* Others */
+import { NombresSimpsons, INFO_SIMPSONS } from "./constants";
+
+// Bio component -> shows the bio section where you can select a character clicking the desired button and it renders that character's bio
 const Bio = () => {
   const [bioActiva, setBioActiva] = useState(
     INFO_SIMPSONS[NombresSimpsons.BART]
   );
 
+  // onClick -> sets which character's bio is shown in the screen
   const onClick: (nombre: NombresSimpsons) => void = (nombre) =>
     setBioActiva(INFO_SIMPSONS[nombre]);
 
@@ -27,22 +35,21 @@ const Bio = () => {
   };
 
   return (
-    <div className={styles.bioContainer}>
-      <div className={styles.contenedorBotones}>{crearBotones()}</div>
+    <BioContainer>
+      <BioButtonsContainer>{crearBotones()}</BioButtonsContainer>
       <div>
         <div>
-          <img
+          <BioImage
             src={bioActiva.image}
             alt={bioActiva.nombre}
-            className={styles.bioImagen}
           />
         </div>
         <div>
-          <h3 className={styles.bioNombre}>{bioActiva.nombre}</h3>
-          <p className={styles.bioDescripcion}>{bioActiva.descripcion}</p>
+          <BioName>{bioActiva.nombre}</BioName>
+          <BioDescription>{bioActiva.descripcion}</BioDescription>
         </div>
       </div>
-    </div>
+    </BioContainer>
   );
 };
 
