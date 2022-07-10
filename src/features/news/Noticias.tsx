@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
-import { SuscribeImage, CloseButton as Close } from "../../assets";
-import { obtenerNoticias } from "./fakeRest";
+/* eslint-disable react-hooks/exhaustive-deps */
+
+/* Dependencies */
+import { FC, useEffect, useState } from 'react';
+
+/* Styled componentes */
 import {
   CloseButton,
   TarjetaModal,
@@ -19,54 +22,77 @@ import {
   BotonLectura,
   BotonSuscribir,
   CotenedorTexto,
-} from "./styled";
+} from './styled';
 
-export interface INoticiasNormalizadas {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  fecha: number | string;
-  esPremium: boolean;
-  imagen: string;
-  descripcionCorta?: string;
-}
+/* Others */
+import { obtenerNoticias } from './fakeRest';
+import { SuscribeImage, CloseButton as Close } from '../../assets';
 
-const Noticias = () => {
-  const [noticias, setNoticias] = useState<INoticiasNormalizadas[]>([]);
-  const [modal, setModal] = useState<INoticiasNormalizadas | null>(null);
+/* Types */
+import { INoticiaNormalizada, INoticia } from '../../interfaces/news-type';
 
+// Noticias component -> Renders the news
+const Noticias: FC = (): JSX.Element => {
+  const [noticias, setNoticias] = useState<INoticiaNormalizada[]>([]);
+  const [modal, setModal] = useState<INoticiaNormalizada | null>(null);
+
+  // onTitleFormatter -> formats the titles setting the first letter of every word in uppercase
+  const onTitleFormatter = (noticia: INoticia) => {
+    const titulo = noticia.titulo
+      .split(' ')
+      .map((str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      })
+      .join(' ');
+    return titulo;
+  };
+
+  // onGetElapsedMinutes -> sets the elapsed minutes for every news
+  const onGetElapsedMinutes = (noticia: INoticia) => {
+    const ahora = new Date();
+    const minutosTranscurridos = Math.floor(
+      (ahora.getTime() - noticia.fecha.getTime()) / 60000
+    );
+    return minutosTranscurridos;
+  };
+
+  // onCloseModal -> closes the modal
+  const onCloseModal = () => setModal(null);
+
+  // onSimulateSuscription -> displays an alert noticing the user that the suscription was successful and closes the modal
+  const onSimulateSuscription = () => {
+    setTimeout(() => {
+      alert('Suscripto!');
+      onCloseModal();
+    }, 1000);
+  };
+
+  // newsNormalizer -> normalizes the news to the required format and set them into the noticias state
+  const newsNormalizer = async () => {
+    const noticias = await obtenerNoticias();
+
+    const noticiasNormalizadas = noticias.map((noticia) => {
+      const titulo = onTitleFormatter(noticia);
+
+      const minutosTranscurridos = onGetElapsedMinutes(noticia);
+
+      return {
+        id: noticia.id,
+        titulo,
+        descripcion: noticia.descripcion,
+        fecha: `Hace ${minutosTranscurridos} minutos`,
+        esPremium: noticia.esPremium,
+        imagen: noticia.imagen,
+        descripcionCorta: noticia.descripcion.substring(0, 100),
+      };
+    });
+
+    setNoticias(noticiasNormalizadas);
+  };
+
+  // useEffect -> updates the noticias state with the normalized news at first render
   useEffect(() => {
-    const obtenerInformacion = async () => {
-      const respuesta = await obtenerNoticias();
-
-      const data = respuesta.map((n) => {
-        const titulo = n.titulo
-          .split(" ")
-          .map((str) => {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-          })
-          .join(" ");
-
-        const ahora = new Date();
-        const minutosTranscurridos = Math.floor(
-          (ahora.getTime() - n.fecha.getTime()) / 60000
-        );
-
-        return {
-          id: n.id,
-          titulo,
-          descripcion: n.descripcion,
-          fecha: `Hace ${minutosTranscurridos} minutos`,
-          esPremium: n.esPremium,
-          imagen: n.imagen,
-          descripcionCorta: n.descripcion.substring(0, 100),
-        };
-      });
-
-      setNoticias(data);
-    };
-
-    obtenerInformacion();
+    newsNormalizer();
   }, []);
 
   return (
@@ -88,7 +114,7 @@ const Noticias = () => {
           modal.esPremium ? (
             <ContenedorModal>
               <TarjetaModal>
-                <CloseButton onClick={() => setModal(null)}>
+                <CloseButton onClick={onCloseModal}>
                   <img src={Close} alt="close-button" />
                 </CloseButton>
                 <ImagenModal src={SuscribeImage} alt="mr-burns-excelent" />
@@ -98,14 +124,7 @@ const Noticias = () => {
                     Suscríbete a nuestro newsletter y recibe noticias de
                     nuestros personajes favoritos.
                   </DescripcionModal>
-                  <BotonSuscribir
-                    onClick={() =>
-                      setTimeout(() => {
-                        alert("Suscripto!");
-                        setModal(null);
-                      }, 1000)
-                    }
-                  >
+                  <BotonSuscribir onClick={onSimulateSuscription}>
                     Suscríbete
                   </BotonSuscribir>
                 </CotenedorTexto>
@@ -114,7 +133,7 @@ const Noticias = () => {
           ) : (
             <ContenedorModal>
               <TarjetaModal>
-                <CloseButton onClick={() => setModal(null)}>
+                <CloseButton onClick={onCloseModal}>
                   <img src={Close} alt="close-button" />
                 </CloseButton>
                 <ImagenModal src={modal.imagen} alt="news-image" />

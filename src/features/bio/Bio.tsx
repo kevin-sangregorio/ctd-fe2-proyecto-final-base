@@ -1,16 +1,25 @@
 /* Dependencies */
-import { useState } from "react";
+import { FC, useState } from 'react';
 
-/* Styles */
-import { BioContainer, BioButtonsContainer, BioImage, BioName, BioDescription } from "./bio-styled-components";
-import styles from "./styles.module.css";
+/* Styled components */
+import {
+  BioContainer,
+  BioButtonsContainer,
+  BioImage,
+  BioName,
+  BioDescription,
+  BioButton,
+} from './styled';
 
 /* Others */
-import { NombresSimpsons, INFO_SIMPSONS } from "./constants";
+import { NombresSimpsons, INFO_SIMPSONS } from './constants';
+
+/* Types */
+import { ICharacter } from '../../interfaces/characters-type';
 
 // Bio component -> shows the bio section where you can select a character clicking the desired button and it renders that character's bio
-const Bio = () => {
-  const [bioActiva, setBioActiva] = useState(
+const Bio: FC = (): JSX.Element => {
+  const [bioActiva, setBioActiva] = useState<ICharacter>(
     INFO_SIMPSONS[NombresSimpsons.BART]
   );
 
@@ -18,19 +27,16 @@ const Bio = () => {
   const onClick: (nombre: NombresSimpsons) => void = (nombre) =>
     setBioActiva(INFO_SIMPSONS[nombre]);
 
+  // crearBotones -> renders a styled button for each character
   const crearBotones = () => {
     return Object.keys(INFO_SIMPSONS).map((nombre: string) => (
-      <button
+      <BioButton
         key={nombre as string}
         onClick={() => onClick(nombre as NombresSimpsons)}
-        className={
-          bioActiva.id === nombre
-            ? styles.botonBioActivo
-            : styles.botonBioInactivo
-        }
+        isActive={bioActiva.id === nombre}
       >
         {nombre}
-      </button>
+      </BioButton>
     ));
   };
 
@@ -39,10 +45,7 @@ const Bio = () => {
       <BioButtonsContainer>{crearBotones()}</BioButtonsContainer>
       <div>
         <div>
-          <BioImage
-            src={bioActiva.image}
-            alt={bioActiva.nombre}
-          />
+          <BioImage src={bioActiva.image} alt={bioActiva.nombre} />
         </div>
         <div>
           <BioName>{bioActiva.nombre}</BioName>

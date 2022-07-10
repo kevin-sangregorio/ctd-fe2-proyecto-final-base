@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from 'styled-components';
 
-interface BioButtonProps {
+interface IBioButton {
   isActive: boolean;
 }
 
@@ -39,16 +39,35 @@ const BioDescription = styled.p`
   margin: 1rem auto;
 `;
 
-//Agregar logica de props
-const BioButton = styled.button<BioButtonProps>`
+const BioButton = styled.button<IBioButton>`
   border-radius: 5px;
   border: 1px solid darkgray;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  font-family: "Homer Simpson Revised", sans-serif;
+  font-family: 'Homer Simpson Revised', sans-serif;
   font-size: 1.4rem;
   margin: 1rem;
   padding: 1rem;
 
+  &:hover {
+    cursor: pointer;
+  }
+
+  ${(props) =>
+    props.isActive &&
+    css`
+      color: whitesmoke;
+      background-color: #fdd835;
+      text-shadow: 2px 2px 0 #000000, 2px -2px 0 #000000, -2px 2px 0 #000000,
+        -2px -2px 0 #000000, 2px 0px 0 #000000, 0px 2px 0 #000000,
+        -2px 0px 0 #000000, 0px -2px 0 #000000;
+    `}
 `;
 
-export { BioContainer, BioButtonsContainer, BioImage, BioName, BioDescription };
+export {
+  BioContainer,
+  BioButtonsContainer,
+  BioImage,
+  BioName,
+  BioDescription,
+  BioButton,
+};

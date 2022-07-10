@@ -1,11 +1,4 @@
-export interface INoticias {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  fecha: Date;
-  esPremium: boolean;
-  imagen: string;
-}
+import { INoticia } from "../../interfaces/news-type";
 
 const simularTiempoTranscurrido: (decrementMiliseconds: number) => Date = (
   decrementMiliseconds
@@ -62,7 +55,7 @@ const data = [
   },
 ];
 
-export const obtenerNoticias: () => Promise<INoticias[]> = async () => {
+export const obtenerNoticias: () => Promise<INoticia[]> = async () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(data);

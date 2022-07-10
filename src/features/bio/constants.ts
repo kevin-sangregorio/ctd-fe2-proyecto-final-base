@@ -1,23 +1,24 @@
+/* Others */
 import {
   BartImage,
   HomerImage,
   LisaImage,
   MaggieImage,
   MargeImage,
-} from "../../assets";
+} from '../../assets';
 
 export enum NombresSimpsons {
-  BART = "BART",
-  LISA = "LISA",
-  MAGGIE = "MAGGIE",
-  MARGE = "MARGE",
-  HOMER = "HOMERO",
+  BART = 'BART',
+  LISA = 'LISA',
+  MAGGIE = 'MAGGIE',
+  MARGE = 'MARGE',
+  HOMER = 'HOMERO',
 }
 
 export const INFO_SIMPSONS = {
   [NombresSimpsons.BART]: {
     id: NombresSimpsons.BART,
-    nombre: "Bart Simpson",
+    nombre: 'Bart Simpson',
     descripcion: `A los diez años, Bart es el hijo mayor y único varón de Homero y Marge,
     y el hermano de Lisa y Maggie.
     Los rasgos de carácter más prominentes y populares de Bart son su picardía,
@@ -26,7 +27,7 @@ export const INFO_SIMPSONS = {
   },
   [NombresSimpsons.HOMER]: {
     id: NombresSimpsons.HOMER,
-    nombre: "Homero Simpson",
+    nombre: 'Homero Simpson',
     descripcion: `Como jefe de la familia,
     Homero y su esposa Marge tienen tres hijos: Bart, Lisa y Maggie.
     Homero trabaja en la planta de energía nuclear de Springfield como inspector de seguridad.
@@ -37,7 +38,7 @@ export const INFO_SIMPSONS = {
   },
   [NombresSimpsons.LISA]: {
     id: NombresSimpsons.LISA,
-    nombre: "Lisa Simpson",
+    nombre: 'Lisa Simpson',
     descripcion: `Lisa es vegetariana, una fuerte ecologista, feminista y budista.
     El personaje de Lisa se transforma muchas veces a lo largo del programa: se convierte en
     vegetariana en la temporada 7 y se convierte al budismo en la temporada 13.
@@ -48,7 +49,7 @@ export const INFO_SIMPSONS = {
   },
   [NombresSimpsons.MAGGIE]: {
     id: NombresSimpsons.MAGGIE,
-    nombre: "Maggie Simpson",
+    nombre: 'Maggie Simpson',
     descripcion: `Maggie es la hija menor de Homero y Marge, y la hermana menor de Bart.
     y Lisa. A menudo se la ve chupando su chupete rojo y, cuando camina,
     se tropieza con la ropa y se cae de cara. Al ser un bebé, aún no ha aprendido a hablar.`,
@@ -56,7 +57,7 @@ export const INFO_SIMPSONS = {
   },
   [NombresSimpsons.MARGE]: {
     id: NombresSimpsons.MARGE,
-    nombre: "Marge Simpson",
+    nombre: 'Marge Simpson',
     descripcion: `Marge es la madre de la familia Simpson. Con su marido Homero, tiene tres
     niños: Bart, Lisa y Maggie. Marge es la fuerza moralista en su familia y
     a menudo emplea una voz firme en medio de las travesuras de su familia, tratando de
