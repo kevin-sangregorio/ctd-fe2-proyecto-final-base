@@ -128,7 +128,7 @@ describe('Quote', () => {
   });
 
   describe('When the delete button is clicked', () => {
-    it('should clear the input and the message on the screen', async () => {
+    it('should clear the input', async () => {
       render(<Cita />);
 
       // gets the input and type on it
@@ -146,7 +146,6 @@ describe('Quote', () => {
       const buttonAfterCleanUp = await screen.findByText(
         'Obtener cita aleatoria'
       );
-
 
       expect(buttonAfterCleanUp).toBeInTheDocument();
       expect(input).toHaveValue('');
