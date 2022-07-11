@@ -3,7 +3,7 @@ import {
   NOMBRE_INVALIDO,
   MENSAJE_CARGANDO,
   NO_ENCONTRADO,
-} from "./constants";
+} from './constants';
 
 export const obtenerMensaje: (
   cita: string,
@@ -17,5 +17,5 @@ export const obtenerMensaje: (
     return NOMBRE_INVALIDO;
   }
 
-  return cita ? `${cita}` : NO_ENCONTRADO;
+  return cita ? cita : NO_ENCONTRADO;
 };
