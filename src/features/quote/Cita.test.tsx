@@ -16,18 +16,7 @@ import { ICita } from './types';
 const handlers = [
   rest.get(API_URL, (req, res, ctx) => {
     const character = req.url.searchParams.get('character');
-    if (!character) {
-      const quote: ICita[] = [
-        {
-          quote: 'Gah, stupid sexy Flanders!',
-          character: 'Homer Simpson',
-          image:
-            'https://cdn.glitch.com/3c3ffadc-3406-4440-bb95-d40ec8fcde72%2FHomerSimpson.png?1497567511939',
-          characterDirection: 'Right',
-        },
-      ];
-      return res(ctx.json(quote));
-    } else {
+    if (character) {
       const quote: ICita[] = [
         {
           quote:
@@ -35,6 +24,17 @@ const handlers = [
           character: 'Dr. Nick',
           image:
             'https://cdn.glitch.com/3c3ffadc-3406-4440-bb95-d40ec8fcde72%2FNickRiviera.png?1497567511084',
+          characterDirection: 'Right',
+        },
+      ];
+      return res(ctx.json(quote));
+    } else {
+      const quote: ICita[] = [
+        {
+          quote: 'Gah, stupid sexy Flanders!',
+          character: 'Homer Simpson',
+          image:
+            'https://cdn.glitch.com/3c3ffadc-3406-4440-bb95-d40ec8fcde72%2FHomerSimpson.png?1497567511939',
           characterDirection: 'Right',
         },
       ];
